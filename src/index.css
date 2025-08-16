@@ -1,0 +1,119 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Montserrat:wght@400;600&display=swap');
+
+/* Import light theme styles */
+@import './styles/lightTheme.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    font-size: 100%;
+  }
+
+  /* Local font registration for News Plantin Roman if provided; otherwise rely on system Plantin/Georgia */
+  @font-face {
+    font-family: "News Plantin Roman";
+    src: local("News Plantin Roman"), local("NewsPlantin-Roman"), local("NewsPlantin"), local("Plantin");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+  }
+}
+
+@keyframes carousel {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-carousel {
+  animation: carousel 30s linear infinite;
+}
+
+@keyframes counter {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-counter {
+  animation: counter 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.7s ease-out both;
+}
+
+/* Hide scrollbar for carousel */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Neon orb animations */
+@keyframes orb-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orb-dash {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -480;
+  }
+}
+
+@keyframes orb-breathe {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+.orb-spin-slow {
+  animation: orb-rotate 22s linear infinite;
+  transform-origin: 50% 50%;
+}
+
+.orb-dash {
+  animation: orb-dash 6s linear infinite;
+}
+
+.orb-breathe {
+  animation: orb-breathe 3.2s ease-in-out infinite;
+}

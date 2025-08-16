@@ -1,0 +1,60 @@
+@layer base {
+  :root {
+    /* Slightly warm off-white to soften pure white */
+    --app-bg: #FCFCFA;
+  }
+  body {
+    @apply text-gray-900;
+    background-color: var(--app-bg);
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-white rounded-lg shadow-lg p-6 border border-gray-200;
+  }
+
+  .card-hover {
+    @apply hover:border-blue-500 hover:bg-gray-50 transition-all;
+  }
+
+  .heading-1 {
+    @apply text-2xl font-bold text-gray-900;
+  }
+
+  .heading-2 {
+    @apply text-xl font-semibold text-gray-900;
+  }
+
+  .heading-3 {
+    @apply text-lg font-medium text-gray-900;
+  }
+
+  .text-body {
+    @apply text-gray-700;
+  }
+
+  .text-muted {
+    @apply text-gray-500;
+  }
+
+  .link {
+    @apply text-blue-600 hover:text-blue-700 transition-colors;
+  }
+
+  .input {
+    @apply bg-white border border-gray-300 rounded-lg px-4 py-2 text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+  }
+
+  .button-primary {
+    @apply bg-blue-600 hover:bg-blue-700 text-white;
+  }
+
+  .button-secondary {
+    @apply bg-gray-200 hover:bg-gray-300 text-gray-900;
+  }
+
+  .button-outline {
+    @apply border border-gray-300 hover:border-blue-500 text-gray-700 hover:text-blue-600;
+  }
+}
