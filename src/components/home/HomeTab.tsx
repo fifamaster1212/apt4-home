@@ -2,6 +2,7 @@ import { LogoCarousel } from '../common/LogoCarousel';
 import { IndexCarousel } from '../common/IndexCarousel';
 import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import { DealsDuo } from '../common/DealsDuo';
+import { OrgJoinFlow } from '../common/OrgJoinFlow';
 import { createPortal } from 'react-dom';
 
 function formatTime(totalSeconds: number): string {
@@ -878,14 +879,22 @@ export function HomeTab() {
                     <div className="col-span-5 md:col-span-2 border-r border-gray-200 p-3 sm:p-4 flex flex-col">
                       <div className="text-[11px] uppercase tracking-wider text-blue-700/80">Behavioral Demo</div>
                       <div className="mt-2 text-sm font-semibold text-gray-900">{behavioralClips[currentClipIndex].prompt}</div>
-                      {/* Neon orb animation */}
+                      {/* Neon orb animation */
+                      }
                       <div className="mt-4 h-28 flex items-center justify-center">
                         <div className="relative" aria-hidden="true">
                           {/* Outer glow */}
-                          <div className="absolute -inset-2 rounded-full bg-sky-500/10 blur-xl" />
+                          <div className="absolute -inset-2 rounded-full bg-sky-400/20 blur-2xl orb-halo" />
+                          <div className="absolute -inset-4 rounded-full bg-indigo-500/15 blur-[28px] orb-halo" style={{ animationDelay: '0.6s' }} />
                           {/* SVG ring with animated gradient stroke */}
-                          <svg width="120" height="120" viewBox="0 0 120 120" className="orb-breathe">
+                          <svg width="120" height="120" viewBox="0 0 120 120" className="orb-breathe orb-core orb-hue">
                             <defs>
+                              <filter id="liquid">
+                                <feTurbulence type="fractalNoise" baseFrequency="0.008" numOctaves="2" seed="3">
+                                  <animate attributeName="baseFrequency" dur="12s" values="0.006;0.010;0.007;0.009;0.006" repeatCount="indefinite" />
+                                </feTurbulence>
+                                <feDisplacementMap in="SourceGraphic" scale="6" />
+                              </filter>
                               <radialGradient id="orbCore" cx="50%" cy="50%" r="50%">
                                 <stop offset="0%" stopColor="#60A5FA" stopOpacity="0.9" />
                                 <stop offset="60%" stopColor="#3B82F6" stopOpacity="0.6" />
@@ -898,10 +907,11 @@ export function HomeTab() {
                               </linearGradient>
                             </defs>
                             {/* Core */}
-                            <circle cx="60" cy="60" r="42" fill="url(#orbCore)" />
-                            {/* Ring path with dash animation */}
-                            <g className="orb-spin-slow">
-                              <circle cx="60" cy="60" r="54" fill="none" stroke="url(#orbStroke)" strokeWidth="3" strokeLinecap="round" strokeDasharray="260 260" className="orb-dash" />
+                            <circle cx="60" cy="60" r="42" fill="url(#orbCore)" filter="url(#liquid)" />
+                            {/* Specular highlight that gently orbits */}
+                            <g className="orb-specular">
+                              <circle cx="92" cy="40" r="6" fill="#FFFFFF" fillOpacity="0.12" />
+                              <circle cx="92" cy="40" r="10" fill="url(#orbCore)" fillOpacity="0.08" />
                             </g>
                           </svg>
                         </div>
@@ -1095,25 +1105,16 @@ export function HomeTab() {
         {/* Organizations Panel */}
         <section className="relative overflow-hidden">
           <div className="relative mx-auto max-w-[90rem] px-5 py-12 animate-fade-in">
-            <div className="grid lg:grid-cols-5 gap-10 items-center">
-              {/* Left: Visual (60%) */}
-              <div className="lg:col-span-3">
-                <div id="organizations" className="relative w-full aspect-[16/10] rounded-lg border border-gray-200 ring-1 ring-blue-100 shadow-lg bg-gradient-to-br from-emerald-50 via-blue-50 to-violet-50 flex items-center justify-center">
-                  <span className="text-xs sm:text-sm text-gray-500">Screenshot placeholder</span>
-                </div>
+            <div className="flex flex-col items-center">
+              {/* Top: Text */}
+              <div className="text-center mb-10">
+                <h2 className="font-news text-3xl sm:text-4xl leading-tight text-gray-900">Prep Together, Succeed Together</h2>
+                <div className="mt-2 h-0.5 w-10 bg-blue-600/80 mx-auto"></div>
+                <p className="mt-3 text-sm sm:text-base text-gray-700 max-w-xl">Coordinate prep efforts and share analytics across teams, clubs, and programs. Build stronger candidates through collaborative preparation.</p>
               </div>
-              {/* Right: Text (40%) */}
-              <div className="lg:col-span-2">
-                <h2 className="font-news text-3xl sm:text-4xl leading-tight text-gray-900">Prep Together. Succeed Together.</h2>
-                <div className="mt-2 h-0.5 w-10 bg-blue-600/80"></div>
-                <p className="mt-3 text-sm sm:text-base text-gray-700 max-w-xl">Coordinate prep efforts and share analytics across teams, clubs, and programs.</p>
-                <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-gray-800">
-                  <span>Organization directory with roles and member counts</span>
-                  <span className="text-blue-400">•</span>
-                  <span>Create/join flow with invite codes</span>
-                  <span className="text-blue-400">•</span>
-                  <span>Aggregate performance analytics for teams</span>
-                </div>
+              {/* Bottom: Organization Display */}
+              <div className="w-full max-w-4xl">
+                <OrgJoinFlow />
               </div>
             </div>
           </div>

@@ -117,3 +117,67 @@
 .orb-breathe {
   animation: orb-breathe 3.2s ease-in-out infinite;
 }
+
+/* Enhanced orb effects */
+@keyframes orb-halo {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.18;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.35;
+  }
+  100% {
+    transform: scale(0.95);
+    opacity: 0.18;
+  }
+}
+
+.orb-halo {
+  animation: orb-halo 4.6s ease-in-out infinite;
+}
+
+@keyframes orb-core-pulse {
+  0% {
+    transform: scale(1);
+  }
+  65% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.orb-core {
+  animation: orb-core-pulse 5.2s ease-in-out infinite;
+  transform-origin: 50% 50%;
+}
+
+/* Slow hue rotation for subtle color drift */
+@keyframes orb-hue-rotate {
+  0% { filter: hue-rotate(0deg) saturate(100%); }
+  100% { filter: hue-rotate(360deg) saturate(100%); }
+}
+
+.orb-hue {
+  animation: orb-hue-rotate 28s linear infinite;
+  will-change: filter;
+}
+
+/* Specular highlight that orbits and softly pulses */
+.orb-specular {
+  transform-origin: 60px 60px;
+  transform-box: fill-box;
+  animation: orb-rotate 18s linear infinite;
+}
+
+@keyframes orb-spec-pulse {
+  0%, 100% { opacity: 0.10; }
+  50% { opacity: 0.22; }
+}
+
+.orb-specular circle {
+  animation: orb-spec-pulse 3.8s ease-in-out infinite;
+}
