@@ -1,8 +1,9 @@
 import { LogoCarousel } from '../common/LogoCarousel';
 import { IndexCarousel } from '../common/IndexCarousel';
-import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import { DealsDuo } from '../common/DealsDuo';
-import { OrgJoinFlow } from '../common/OrgJoinFlow';
+import { CreateOrganizationFlow } from '../common/CreateOrganizationFlow';
+import { MarketPulse } from '../common/MarketPulse';
 import { createPortal } from 'react-dom';
 
 function formatTime(totalSeconds: number): string {
@@ -496,115 +497,47 @@ export function HomeTab() {
   };
 
   // Organizations: directory, invite, analytics
-  type OrgRole = 'Admin' | 'Coach' | 'Member';
+  type OrgRole = 'Admin' | 'Member';
   type OrgStatus = 'Active' | 'Invited';
   type OrgMember = {
     id: string;
     name: string;
     role: OrgRole;
-    team: string;
-    status: OrgStatus;
-    sessions7d: number;
+    vertical: string;
     mocks7d: number;
-    accuracyPct: number; // 0-100
+    technical: string;
+    behavioral: string;
   };
 
   const orgMembers = useMemo<OrgMember[]>(
     () => [
-      { id: 'm-1', name: 'Ava Thompson', role: 'Admin', team: 'IB Club', status: 'Active', sessions7d: 5, mocks7d: 3, accuracyPct: 82 },
-      { id: 'm-2', name: 'Noah Patel', role: 'Coach', team: 'IB Club', status: 'Active', sessions7d: 4, mocks7d: 6, accuracyPct: 79 },
-      { id: 'm-3', name: 'Sophia Nguyen', role: 'Member', team: 'PE Fellowship', status: 'Active', sessions7d: 2, mocks7d: 1, accuracyPct: 73 },
-      { id: 'm-4', name: 'Liam Chen', role: 'Member', team: 'Finance Society', status: 'Active', sessions7d: 0, mocks7d: 0, accuracyPct: 0 },
-      { id: 'm-5', name: 'Emma Rodriguez', role: 'Member', team: 'Fall Cohort', status: 'Invited', sessions7d: 0, mocks7d: 0, accuracyPct: 0 },
-      { id: 'm-6', name: 'James Wilson', role: 'Member', team: 'Analyst Prep', status: 'Active', sessions7d: 3, mocks7d: 2, accuracyPct: 76 },
-      { id: 'm-7', name: 'Mia Park', role: 'Coach', team: 'Analyst Prep', status: 'Active', sessions7d: 6, mocks7d: 4, accuracyPct: 88 },
-      { id: 'm-8', name: 'Ethan Brooks', role: 'Member', team: 'PE Fellowship', status: 'Active', sessions7d: 1, mocks7d: 1, accuracyPct: 68 }
+      { id: 'm-1', name: 'Ava', role: 'Admin', vertical: 'Investment Banking', mocks7d: 3, technical: 'A', behavioral: 'A' },
+      { id: 'm-2', name: 'Noah', role: 'Member', vertical: 'Investment Banking', mocks7d: 6, technical: 'A', behavioral: 'A' },
+      { id: 'm-3', name: 'Sophia', role: 'Member', vertical: 'Private Equity', mocks7d: 1, technical: 'B', behavioral: 'B' },
+      { id: 'm-4', name: 'Liam', role: 'Member', vertical: 'Equity Research', mocks7d: 0, technical: 'C', behavioral: 'C' },
+      { id: 'm-5', name: 'Emma', role: 'Member', vertical: 'Investment Banking', mocks7d: 0, technical: 'C', behavioral: 'B' },
+      { id: 'm-6', name: 'James', role: 'Member', vertical: 'Equity Research', mocks7d: 2, technical: 'B', behavioral: 'B' },
+      { id: 'm-7', name: 'Mia', role: 'Admin', vertical: 'Private Equity', mocks7d: 4, technical: 'A', behavioral: 'A' },
+      { id: 'm-8', name: 'Ethan', role: 'Member', vertical: 'Private Equity', mocks7d: 1, technical: 'B', behavioral: 'B' }
     ],
     []
   );
 
-  const orgRoleOptions: Array<'All' | OrgRole> = ['All', 'Admin', 'Coach', 'Member'];
+  const orgRoleOptions: Array<'All' | OrgRole> = ['All', 'Admin', 'Member'];
   const orgStatusOptions: Array<'All' | OrgStatus> = ['All', 'Active', 'Invited'];
-  const orgTeams = useMemo(() => Array.from(new Set(orgMembers.map((m) => m.team))), [orgMembers]);
-  const orgTeamOptions: Array<'All' | string> = useMemo(() => ['All', ...orgTeams], [orgTeams]);
+  const orgVerticals = useMemo(() => Array.from(new Set(orgMembers.map((m) => m.vertical))), [orgMembers]);
+  const orgVerticalOptions: Array<'All' | string> = useMemo(() => ['All', ...orgVerticals], [orgVerticals]);
 
   const [orgRoleFilter, setOrgRoleFilter] = useState<'All' | OrgRole>('All');
-  const [orgTeamFilter, setOrgTeamFilter] = useState<'All' | string>('All');
-  const [orgStatusFilter, setOrgStatusFilter] = useState<'All' | OrgStatus>('All');
-  const [orgFilterDropdown, setOrgFilterDropdown] = useState<null | 'role' | 'team' | 'status'>(null);
+  const [orgVerticalFilter, setOrgVerticalFilter] = useState<'All' | string>('All');
+
 
   const filteredMembers = useMemo(() => {
     return orgMembers.filter((m) =>
       (orgRoleFilter === 'All' || m.role === orgRoleFilter) &&
-      (orgTeamFilter === 'All' || m.team === orgTeamFilter) &&
-      (orgStatusFilter === 'All' || m.status === orgStatusFilter)
+      (orgVerticalFilter === 'All' || m.vertical === orgVerticalFilter)
     );
-  }, [orgMembers, orgRoleFilter, orgTeamFilter, orgStatusFilter]);
-
-  const getRolePillClass = (role: OrgRole) => {
-    switch (role) {
-      case 'Admin':
-        return 'bg-blue-100 text-blue-700 border-blue-200';
-      case 'Coach':
-        return 'bg-purple-100 text-purple-700 border-purple-200';
-      default:
-        return 'bg-gray-100 text-gray-700 border-gray-200';
-    }
-  };
-
-  // Invite/Create flow
-  const [inviteCodeInput, setInviteCodeInput] = useState('');
-  const [joinStatus, setJoinStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [generatedInviteCode, setGeneratedInviteCode] = useState('');
-  const [copiedInvite, setCopiedInvite] = useState(false);
-  const [createdOrg, setCreatedOrg] = useState(false);
-
-  const generateInvite = () => {
-    const code = 'ROL-' + Math.random().toString(36).slice(2, 8).toUpperCase();
-    setGeneratedInviteCode(code);
-    setCopiedInvite(false);
-  };
-
-  const copyInvite = async () => {
-    if (!generatedInviteCode) return;
-    try {
-      await navigator.clipboard.writeText(generatedInviteCode);
-      setCopiedInvite(true);
-    } catch {}
-  };
-
-  const handleJoinOrg = (e?: FormEvent) => {
-    if (e) e.preventDefault();
-    const trimmed = inviteCodeInput.trim();
-    if (trimmed.length >= 6) {
-      setJoinStatus('success');
-    } else {
-      setJoinStatus('error');
-    }
-  };
-
-  // Analytics (aggregate)
-  const [analyticsTeamFilter, setAnalyticsTeamFilter] = useState<'All' | string>('All');
-  const analyticsTeams = orgTeamOptions;
-  const membersForAnalytics = useMemo(() => {
-    return analyticsTeamFilter === 'All' ? orgMembers : orgMembers.filter((m) => m.team === analyticsTeamFilter);
-  }, [orgMembers, analyticsTeamFilter]);
-
-  const activeMembers7d = useMemo(() => membersForAnalytics.filter((m) => m.sessions7d > 0).length, [membersForAnalytics]);
-  const sessionsPerMember = useMemo(() => {
-    if (membersForAnalytics.length === 0) return 0;
-    const total = membersForAnalytics.reduce((sum, m) => sum + m.sessions7d, 0);
-    return Number((total / membersForAnalytics.length).toFixed(1));
-  }, [membersForAnalytics]);
-  const avgAccuracy = useMemo(() => {
-    const withActivity = membersForAnalytics.filter((m) => m.accuracyPct > 0);
-    if (withActivity.length === 0) return 0;
-    const total = withActivity.reduce((sum, m) => sum + m.accuracyPct, 0);
-    return Math.round(total / withActivity.length);
-  }, [membersForAnalytics]);
-  const mocksRun7d = useMemo(() => membersForAnalytics.reduce((sum, m) => sum + m.mocks7d, 0), [membersForAnalytics]);
-  const completionRate = 64; // placeholder aggregate
-  const topTopics: string[] = ['LBO', 'Accounting', 'Valuation'];
+  }, [orgMembers, orgRoleFilter, orgVerticalFilter]);
 
   return (
     <div className="space-y-12">
@@ -1015,12 +948,15 @@ export function HomeTab() {
               </article>
               {/* Card 3: Market Pulse */}
               <article className="rounded-xl border border-gray-200 shadow-lg bg-gradient-to-b from-slate-100 to-slate-50 flex flex-col">
-                <div className="relative aspect-[16/10] rounded-t-xl border-b border-gray-200 ring-1 ring-blue-100 bg-white flex items-center justify-center">
-                  <span className="text-xs sm:text-sm text-gray-500">Placeholder visual</span>
+                <div className="rounded-t-xl border-b border-gray-200 ring-1 ring-blue-100 bg-white p-3">
+                  <div className="text-center mb-2">
+                    <p className="text-xs text-gray-600">Market Pulse</p>
+                  </div>
+                  <MarketPulse />
                 </div>
                 <div className="p-4 sm:p-5">
-                  <h3 className="text-base font-semibold tracking-tight text-gray-900">AI‑powered Market Pulse</h3>
-                  <p className="mt-1 text-sm text-gray-600">Bullish/Bearish sentiment with timestamped insights and sources.</p>
+                  <h3 className="text-base font-semibold tracking-tight text-gray-900">Interview insights</h3>
+                  <p className="mt-1 text-sm text-gray-600">Sector-specific talking points and market data for interviews.</p>
                 </div>
               </article>
             </div>
@@ -1112,19 +1048,161 @@ export function HomeTab() {
                 <div className="mt-2 h-0.5 w-10 bg-blue-600/80 mx-auto"></div>
                 <p className="mt-3 text-sm sm:text-base text-gray-700 max-w-xl">Coordinate prep efforts and share analytics across teams, clubs, and programs. Build stronger candidates through collaborative preparation.</p>
               </div>
-              {/* Bottom: Organization Display */}
-              <div className="w-full max-w-4xl">
-                <OrgJoinFlow />
+              {/* Bottom: Organization Display - Placeholder */}
+              <div className="w-full">
+                <div className="grid grid-cols-5 gap-8 relative">
+                  {/* Left Placeholder - Wider */}
+                  <div className="col-span-2 relative z-10 flex items-start">
+                    <CreateOrganizationFlow />
+                  </div>
+                  {/* Right Placeholder - Smaller */}
+                  <div className="col-span-3 relative z-0">
+                                          <div className="relative w-full border border-gray-200 ring-1 ring-blue-100 shadow-lg bg-gray-50">
+                      {/* Subtle texture pattern */}
+                      <div className="absolute inset-0 opacity-10">
+                        <div className="absolute inset-0" style={{
+                          backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='1' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='1'/%3E%3C/g%3E%3C/svg%3E")`,
+                          backgroundSize: '20px 20px'
+                        }}></div>
+                      </div>
+                      
+                      {/* Header */}
+                                              <div className="relative border-b border-gray-200 ring-1 ring-blue-100 bg-gray-100 p-4 overflow-hidden">
+                        {/* Subtle texture pattern */}
+                        <div className="absolute inset-0 opacity-10">
+                          <div className="absolute inset-0" style={{
+                            backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='1' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='1'/%3E%3C/g%3E%3C/svg%3E")`,
+                            backgroundSize: '20px 20px'
+                          }}></div>
+                        </div>
+                        
+                        <div className="relative">
+                          {/* Top row with title and stats */}
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center space-x-3">
+                              <div>
+                                <h3 className="text-lg font-semibold text-gray-900">Investment Banking Club</h3>
+                                <p className="text-sm text-gray-600">Harvard University</p>
+                              </div>
+                            </div>
+                            <div className="flex items-center space-x-4">
+                              <div className="text-right">
+                                <div className="text-sm font-medium text-gray-900">24 members</div>
+                                <div className="text-xs text-gray-500">Active</div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          {/* Bottom row with informative elements */}
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-4">
+                              {/* Performance metrics */}
+                              <div className="flex items-center space-x-3">
+                                <div className="text-center bg-green-50 px-2 py-1 rounded border border-green-200">
+                                  <div className="text-sm font-bold text-green-700">A+</div>
+                                  <div className="text-xs text-green-600">Avg Grade</div>
+                                </div>
+                                <div className="text-center bg-blue-50 px-2 py-1 rounded border border-blue-200">
+                                  <div className="text-xs font-semibold text-blue-700">17</div>
+                                  <div className="text-xs text-blue-600">Interviews</div>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <div className="flex items-center space-x-3">
+                              {/* Last activity */}
+                              <div className="text-right">
+                                <div className="text-xs text-gray-500">Last activity</div>
+                                <div className="text-xs font-medium text-gray-900">2 hours ago</div>
+                              </div>
+                              
+                              {/* Status badges */}
+                              <div className="flex items-center space-x-1">
+                                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 border border-green-200">
+                                  Active
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+
+                      {/* Tab Content - Members */}
+                      <div className="relative p-4">
+
+                        {/* Members Table */}
+                        <div className="border border-gray-200 bg-white">
+                          {/* Table Header */}
+                          <div className="grid grid-cols-12 px-3 py-2 text-[11px] uppercase tracking-wider text-gray-600 bg-gray-50 border-b border-gray-200 divide-x divide-gray-200">
+                            <div className="col-span-1 text-center">#</div>
+                            <div className="col-span-2 text-center">Name</div>
+                            <div className="col-span-3 text-center">Vertical</div>
+                            <div className="col-span-2 text-center">Interviews</div>
+                            <div className="col-span-2 text-center">Technical</div>
+                            <div className="col-span-2 text-center">Behavioral</div>
+                          </div>
+                          
+                          {/* Table Rows */}
+                          <div className="divide-y divide-gray-200">
+                            {filteredMembers.map((member, idx) => (
+                              <div key={member.id} className="grid grid-cols-12 px-3 py-2 gap-0 items-center divide-x divide-gray-200 odd:bg-white even:bg-gray-50">
+                                {/* Row number */}
+                                <div className="col-span-1 text-center text-xs text-gray-500">{idx + 1}</div>
+                                
+                                {/* Name */}
+                                <div className="col-span-2 px-2 py-1 text-center">
+                                  <div className="text-xs font-medium text-gray-900 truncate" title={member.name}>
+                                    {member.name}
+                                  </div>
+                                </div>
+                                
+                                {/* Vertical */}
+                                <div className="col-span-3 px-2 py-1 text-center">
+                                  <span className="text-xs text-gray-700 truncate" title={member.vertical}>
+                                    {member.vertical}
+                                  </span>
+                                </div>
+                                
+                                {/* Interviews */}
+                                <div className="col-span-2 px-2 py-1 text-center">
+                                  <span className="text-xs text-gray-900 font-mono">
+                                    {member.mocks7d}
+                                  </span>
+                                </div>
+                                
+                                {/* Technical */}
+                                <div className="col-span-2 px-2 py-1 text-center">
+                                  <span className="text-xs text-gray-900 font-mono">
+                                    {member.technical}
+                                  </span>
+                                </div>
+                                
+                                {/* Behavioral */}
+                                <div className="col-span-2 px-2 py-1 text-center">
+                                  <span className="text-xs text-gray-900 font-mono">
+                                    {member.behavioral}
+                                  </span>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                          
+                          {filteredMembers.length === 0 && (
+                            <div className="px-3 py-6 text-xs text-gray-600 text-center">No members match the selected filters.</div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Feature grid removed per request */}
-
-        {/* Testimonials / Quotes — removed per request */}
-
-        {/* Security / Compliance (reworked) */}
+        {/* Security / Compliance */}
         <section className="relative overflow-hidden">
           <div className="relative mx-auto max-w-[90rem] px-5 py-12 lg:py-16">
             <div className="rounded-none bg-gray-950 text-gray-100 border border-gray-800 overflow-hidden">
