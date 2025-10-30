@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Menu, X, ArrowRight } from 'lucide-react';
-import placeholderLogo from '../../assets/placeholder.svg';
+import apt4Logo from '../../assets/apt4-logo.svg';
 
 interface HeaderProps {}
 
@@ -13,7 +13,7 @@ export function Header({}: HeaderProps) {
       <div className="bg-blue-600 border-b border-blue-700">
         <div className="max-w-[90rem] mx-auto px-4 h-10 flex items-center justify-center">
           <div className="flex items-center gap-2 text-sm text-white font-light">
-            <span>Announcing our $100M Series A.</span>
+            <span>Announcing our $500M Fund IV.</span>
             <a href="/" className="inline-flex items-center gap-1 text-white hover:text-white/90 no-underline">
               Read More
               <ArrowRight className="w-3 h-3" />
@@ -28,13 +28,8 @@ export function Header({}: HeaderProps) {
             className="flex items-center gap-1 group cursor-pointer"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
-            <img
-              src={placeholderLogo}
-              alt="Rolodex Logo"
-              className="h-5 w-auto transition-transform duration-700 group-hover:rotate-90"
-            />
-            <span className="hidden sm:inline-block text-lg font-libre font-semibold tracking-tight text-gray-900 leading-tight">
-              rolodex
+            <span className="text-lg font-libre font-semibold tracking-tight text-gray-900 leading-tight">
+              APT4 Ventures
             </span>
           </div>
 
@@ -45,13 +40,13 @@ export function Header({}: HeaderProps) {
                 <a href="/" className="hover:text-gray-900 no-underline">Home</a>
               </li>
               <li>
-                <a href="#careers" className="hover:text-gray-900 no-underline">Careers</a>
+                <a href="#portfolio" className="hover:text-gray-900 no-underline">Portfolio</a>
               </li>
               <li>
                 <a href="/blog" className="hover:text-gray-900 no-underline">Blog</a>
               </li>
               <li>
-                <a href="#support" className="hover:text-gray-900 no-underline">Support</a>
+                <a href="#contact" className="hover:text-gray-900 no-underline">Contact</a>
               </li>
             </ul>
           </nav>
@@ -62,14 +57,14 @@ export function Header({}: HeaderProps) {
               onClick={() => {}}
               className="hidden sm:inline-flex items-center justify-center px-4 py-1.5 text-sm bg-blue-600 hover:bg-blue-700 text-white border border-blue-600 rounded-none"
             >
-              Get Started
+              Pitch Us
               <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
             </button>
             <button
               onClick={() => {}}
               className="hidden sm:inline-flex items-center justify-center px-4 py-1.5 text-sm border border-gray-300 text-gray-900 bg-white hover:bg-gray-50 rounded-none"
             >
-              Login
+              LPs
             </button>
 
             {/* Mobile Menu Button */}
@@ -94,22 +89,22 @@ export function Header({}: HeaderProps) {
                   </li>
                   
                   <li>
-                    <a href="#careers" className="block px-1 py-1 hover:text-gray-900">Careers</a>
+                    <a href="#portfolio" className="block px-1 py-1 hover:text-gray-900">Portfolio</a>
                   </li>
                   <li>
                     <a href="#blog" className="block px-1 py-1 hover:text-gray-900">Blog</a>
                   </li>
                   <li>
-                    <a href="#support" className="block px-1 py-1 hover:text-gray-900">Support</a>
+                    <a href="#contact" className="block px-1 py-1 hover:text-gray-900">Contact</a>
                   </li>
                 </ul>
               </nav>
               <div className="mt-4 flex items-center gap-2">
                 <button className="flex-1 px-3 py-2 text-sm bg-blue-600 hover:bg-blue-700 text-white border border-blue-600 rounded-none">
-                  Get Started
+                  Pitch Us
                 </button>
                 <button className="flex-1 px-3 py-2 text-sm border border-gray-300 text-gray-900 bg-white hover:bg-gray-50 rounded-none">
-                  Login
+                  LPs
                 </button>
               </div>
             </div>

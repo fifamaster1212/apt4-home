@@ -382,32 +382,32 @@ export function HomeTab() {
   const menuPortalRef = useRef<HTMLDivElement | null>(null);
   const defaultApplications: Application[] = [
     {
-      id: 'gs-ib-sa',
-      company: 'Goldman Sachs',
-      role: 'Investment Banking Summer Analyst',
-      location: 'New York, NY',
+      id: 'tc-ai-series-a',
+      company: 'TechCorp AI',
+      role: 'Series A Investment',
+      location: 'San Francisco, CA',
       appliedOn: new Date().toISOString().slice(0, 10),
-      tracking: 'Not applied',
+      tracking: 'Offer',
       priority: true,
       deadline: '2025-09-01'
     },
     {
-      id: 'ms-ib-sa',
-      company: 'Morgan Stanley',
-      role: 'Investment Banking Summer Analyst',
-      location: 'San Francisco, CA',
+      id: 'df-systems-seed',
+      company: 'DataFlow Systems',
+      role: 'Seed Investment',
+      location: 'New York, NY',
       appliedOn: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7).toISOString().slice(0, 10),
-      tracking: 'Phone',
+      tracking: 'Superday',
       priority: false,
       deadline: '2025-08-25'
     },
     {
-      id: 'jpm-er-sa',
-      company: 'J.P. Morgan',
-      role: 'Equity Research Summer Analyst',
-      location: 'New York, NY',
+      id: 'cv-series-b',
+      company: 'CloudVault',
+      role: 'Series B Investment',
+      location: 'Austin, TX',
       appliedOn: new Date().toISOString().slice(0, 10),
-      tracking: 'Not applied',
+      tracking: 'Phone',
       priority: false,
       deadline: ''
     }
@@ -417,13 +417,13 @@ export function HomeTab() {
       const saved = localStorage.getItem('applicationTracker');
       const raw = saved ? (JSON.parse(saved) as any[]) : defaultApplications;
       const migrated = migrateApplications(raw);
-      // Ensure the J.P. Morgan ER SA row exists even for existing users
-      if (!migrated.some((a) => a.id === 'jpm-er-sa')) {
+      // Ensure the CloudVault Series B row exists even for existing users
+      if (!migrated.some((a) => a.id === 'cv-series-b')) {
         migrated.push({
-          id: 'jpm-er-sa',
-          company: 'J.P. Morgan',
-          role: 'Equity Research Summer Analyst',
-          location: 'New York, NY',
+          id: 'cv-series-b',
+          company: 'CloudVault',
+          role: 'Series B Investment',
+          location: 'Austin, TX',
           appliedOn: new Date().toISOString().slice(0, 10),
           tracking: 'Not applied',
           priority: false,
@@ -511,14 +511,14 @@ export function HomeTab() {
 
   const orgMembers = useMemo<OrgMember[]>(
     () => [
-      { id: 'm-1', name: 'Ava', role: 'Admin', vertical: 'Investment Banking', mocks7d: 3, technical: 'A', behavioral: 'A' },
-      { id: 'm-2', name: 'Noah', role: 'Member', vertical: 'Investment Banking', mocks7d: 6, technical: 'A', behavioral: 'A' },
-      { id: 'm-3', name: 'Sophia', role: 'Member', vertical: 'Private Equity', mocks7d: 1, technical: 'B', behavioral: 'B' },
-      { id: 'm-4', name: 'Liam', role: 'Member', vertical: 'Equity Research', mocks7d: 0, technical: 'C', behavioral: 'C' },
-      { id: 'm-5', name: 'Emma', role: 'Member', vertical: 'Investment Banking', mocks7d: 0, technical: 'C', behavioral: 'B' },
-      { id: 'm-6', name: 'James', role: 'Member', vertical: 'Equity Research', mocks7d: 2, technical: 'B', behavioral: 'B' },
-      { id: 'm-7', name: 'Mia', role: 'Admin', vertical: 'Private Equity', mocks7d: 4, technical: 'A', behavioral: 'A' },
-      { id: 'm-8', name: 'Ethan', role: 'Member', vertical: 'Private Equity', mocks7d: 1, technical: 'B', behavioral: 'B' }
+      { id: 'm-1', name: 'Sarah Chen', role: 'Admin', vertical: 'AI & Machine Learning', mocks7d: 3, technical: 'A', behavioral: 'A' },
+      { id: 'm-2', name: 'Michael Rodriguez', role: 'Member', vertical: 'FinTech', mocks7d: 6, technical: 'A', behavioral: 'A' },
+      { id: 'm-3', name: 'Dr. Lisa Park', role: 'Member', vertical: 'Healthcare', mocks7d: 1, technical: 'B', behavioral: 'B' },
+      { id: 'm-4', name: 'David Kim', role: 'Member', vertical: 'Cybersecurity', mocks7d: 0, technical: 'C', behavioral: 'C' },
+      { id: 'm-5', name: 'Jennifer Walsh', role: 'Member', vertical: 'Cloud Computing', mocks7d: 0, technical: 'C', behavioral: 'B' },
+      { id: 'm-6', name: 'Alex Thompson', role: 'Member', vertical: 'CleanTech', mocks7d: 2, technical: 'B', behavioral: 'B' },
+      { id: 'm-7', name: 'Dr. Maria Santos', role: 'Admin', vertical: 'Quantum Computing', mocks7d: 4, technical: 'A', behavioral: 'A' },
+      { id: 'm-8', name: 'James Wilson', role: 'Member', vertical: 'Blockchain', mocks7d: 1, technical: 'B', behavioral: 'B' }
     ],
     []
   );
@@ -546,12 +546,12 @@ export function HomeTab() {
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-sky-500/5 to-purple-500/10" />
           <div className="relative mx-auto max-w-[90rem] px-5 py-12 lg:py-16">
             <div className="max-w-3xl">
-              <p className="text-[10px] uppercase tracking-wider text-blue-700/80 font-semibold mb-2">AI-native interview preparation</p>
+              <p className="text-[10px] uppercase tracking-wider text-blue-700/80 font-semibold mb-2">Venture Capital Excellence</p>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-news tracking-tight text-gray-900 leading-[1.08]">
-                The modern platform for finance interview excellence
+                Partnering with exceptional founders to build the future
               </h1>
               <p className="mt-4 text-sm sm:text-base text-gray-700 max-w-2xl">
-                Activate personalized practice, simulate real interviews, and deliver consistent coaching at scale. Built for students and organizations who take preparation seriously.
+                We invest in early-stage technology companies with transformative potential. Our portfolio spans AI, fintech, healthcare, and enterprise software across North America and Europe.
               </p>
               <div className="mt-6">
                 {/* Email capture + Start Free CTA with gray outline on input and blue outline on button */}
@@ -559,12 +559,12 @@ export function HomeTab() {
                   <input
                     type="email"
                     required
-                    placeholder="What's your email?"
+                    placeholder="Enter your email to stay updated"
                     className="flex-1 h-10 px-4 text-sm text-gray-800 placeholder-gray-500 focus:outline-none border border-gray-300"
                   />
                   <button type="submit" className="ml-[-1px] h-10 px-4 sm:px-5 text-sm bg-blue-600 hover:bg-blue-700 text-white border border-blue-600">
-                    Start Free
-                    <span className="sr-only">Start using Rolodex</span>
+                    Subscribe
+                    <span className="sr-only">Subscribe to APT4 Ventures updates</span>
                   </button>
                 </form>
               </div>
@@ -577,7 +577,7 @@ export function HomeTab() {
         {/* Company Logos Carousel */}
         <section className="mx-auto max-w-[90rem] px-5">
           <LogoCarousel 
-            title="Powering preparation for candidates from leading investment banks"
+            title="Trusted by leading technology companies and entrepreneurs"
             heightClass="h-14"
             companies={bankCompanies}
           />
@@ -589,9 +589,9 @@ export function HomeTab() {
             <div className="grid lg:grid-cols-5 gap-10 items-center">
               {/* Left: Text (40%) */}
               <div className="lg:col-span-2">
-                <h2 className="font-news text-3xl sm:text-4xl leading-tight text-gray-900">Master Every Technical Concept</h2>
+                <h2 className="font-news text-3xl sm:text-4xl leading-tight text-gray-900">Deep Technical Expertise</h2>
                 <div className="mt-2 h-0.5 w-10 bg-blue-600/80"></div>
-                <p className="mt-3 text-sm sm:text-base text-gray-700 max-w-xl">From accounting fundamentals to advanced LBO modeling, train across all major topics with real-time feedback.</p>
+                <p className="mt-3 text-sm sm:text-base text-gray-700 max-w-xl">Our team brings decades of experience in technology, finance, and operations to help portfolio companies scale and succeed.</p>
                 
               </div>
 
@@ -717,7 +717,7 @@ export function HomeTab() {
                   >
                     {/* Card container */}
                     <div className="absolute inset-2 sm:inset-2 bg-white border border-gray-200 shadow-lg ring-1 ring-blue-100 rounded-xl p-4 sm:p-6 flex flex-col">
-                      <div className="text-[11px] uppercase tracking-wider text-blue-700/80">Technical Flashcards</div>
+                      <div className="text-[11px] uppercase tracking-wider text-blue-700/80">Investment Focus Areas</div>
                       <div className="mt-3 flex-1">
                         {flashcards.length === 0 ? (
                           <div className="h-full w-full flex items-center justify-center">
@@ -810,7 +810,7 @@ export function HomeTab() {
                   <div className="absolute inset-3 sm:inset-4 bg-white/90 backdrop-blur border border-gray-200 rounded-lg overflow-hidden grid grid-cols-5">
                     {/* Player pane */}
                     <div className="col-span-5 md:col-span-2 border-r border-gray-200 p-3 sm:p-4 flex flex-col">
-                      <div className="text-[11px] uppercase tracking-wider text-blue-700/80">Behavioral Demo</div>
+                      <div className="text-[11px] uppercase tracking-wider text-blue-700/80">Founder Partnership</div>
                       <div className="mt-2 text-sm font-semibold text-gray-900">{behavioralClips[currentClipIndex].prompt}</div>
                       {/* Neon orb animation */
                       }
@@ -901,9 +901,9 @@ export function HomeTab() {
 
               {/* Right: Text (40%) */}
               <div className="lg:col-span-2">
-                <h2 className="font-news text-3xl sm:text-4xl leading-tight text-gray-900">Refine Your Story. Perfect Your Delivery.</h2>
+                <h2 className="font-news text-3xl sm:text-4xl leading-tight text-gray-900">Strategic Partnership Approach</h2>
                 <div className="mt-2 h-0.5 w-10 bg-blue-600/80"></div>
-                <p className="mt-3 text-sm sm:text-base text-gray-700 max-w-xl">Prepare for every behavioral curveball with structured categories and instant feedback.</p>
+                <p className="mt-3 text-sm sm:text-base text-gray-700 max-w-xl">We work closely with founders to provide strategic guidance, operational support, and access to our extensive network of industry leaders.</p>
                 
               </div>
             </div>
@@ -914,9 +914,9 @@ export function HomeTab() {
         <section className="relative overflow-hidden">
           <div className="relative mx-auto max-w-[90rem] px-5 py-12 animate-fade-in">
             <div className="text-center max-w-3xl mx-auto">
-              <h2 className="font-news text-3xl sm:text-4xl leading-tight text-gray-900">Stay Market-Ready, Every Day</h2>
+              <h2 className="font-news text-3xl sm:text-4xl leading-tight text-gray-900">Market Intelligence & Insights</h2>
               <div className="mx-auto mt-2 h-0.5 w-10 bg-blue-600/80"></div>
-              <p className="mt-3 text-sm sm:text-base text-gray-700">Track indices, analyze deals, and absorb market sentiment — all in one place.</p>
+              <p className="mt-3 text-sm sm:text-base text-gray-700">Stay ahead of market trends, track portfolio performance, and identify emerging opportunities in technology sectors.</p>
             </div>
             <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-stretch">
               {/* Card 1: Index strip */}
@@ -929,34 +929,34 @@ export function HomeTab() {
                   </div>
                 </div>
                 <div className="p-4 sm:p-5">
-                  <h3 className="text-base font-semibold tracking-tight text-gray-900">Real-time index strip</h3>
-                  <p className="mt-1 text-sm text-gray-600">S&P 500, NASDAQ, 10‑yr, Gold, Oil — live and glanceable.</p>
+                  <h3 className="text-base font-semibold tracking-tight text-gray-900">Market indicators</h3>
+                  <p className="mt-1 text-sm text-gray-600">Tech indices, venture funding trends, and sector performance — real-time insights.</p>
                 </div>
               </article>
               {/* Card 2: Deal flow */}
               <article className="rounded-xl border border-gray-200 shadow-lg bg-gradient-to-b from-slate-100 to-slate-50 flex flex-col">
                 <div className="rounded-t-xl border-b border-gray-200 ring-1 ring-blue-100 bg-white p-3">
                   <div className="text-center mb-2">
-                    <p className="text-xs text-gray-600">Recent Deal Flow</p>
+                    <p className="text-xs text-gray-600">Portfolio Activity</p>
                   </div>
                   <DealsDuo />
                 </div>
                 <div className="p-4 sm:p-5">
-                  <h3 className="text-base font-semibold tracking-tight text-gray-900">Two-up deal glance</h3>
-                  <p className="mt-1 text-sm text-gray-600">Tap a deal to expand; the other collapses automatically.</p>
+                  <h3 className="text-base font-semibold tracking-tight text-gray-900">Portfolio highlights</h3>
+                  <p className="mt-1 text-sm text-gray-600">Recent investments, funding rounds, and strategic partnerships across our portfolio.</p>
                 </div>
               </article>
               {/* Card 3: Market Pulse */}
               <article className="rounded-xl border border-gray-200 shadow-lg bg-gradient-to-b from-slate-100 to-slate-50 flex flex-col">
                 <div className="rounded-t-xl border-b border-gray-200 ring-1 ring-blue-100 bg-white p-3">
                   <div className="text-center mb-2">
-                    <p className="text-xs text-gray-600">Market Pulse</p>
+                    <p className="text-xs text-gray-600">Sector Insights</p>
                   </div>
                   <MarketPulse />
                 </div>
                 <div className="p-4 sm:p-5">
-                  <h3 className="text-base font-semibold tracking-tight text-gray-900">Interview insights</h3>
-                  <p className="mt-1 text-sm text-gray-600">Sector-specific talking points and market data for interviews.</p>
+                  <h3 className="text-base font-semibold tracking-tight text-gray-900">Industry insights</h3>
+                  <p className="mt-1 text-sm text-gray-600">Deep analysis of technology trends, market dynamics, and investment opportunities.</p>
                 </div>
               </article>
             </div>
@@ -971,9 +971,9 @@ export function HomeTab() {
             <div className="grid lg:grid-cols-5 gap-10 items-start">
               {/* Left: Text (40%) */}
               <div className="lg:col-span-2">
-                <h2 className="font-news text-3xl sm:text-4xl leading-tight text-gray-900">Track Every Opportunity, End-to-End</h2>
+                <h2 className="font-news text-3xl sm:text-4xl leading-tight text-gray-900">Portfolio Company Performance</h2>
                 <div className="mt-2 h-0.5 w-10 bg-blue-600/80"></div>
-                <p className="mt-3 text-sm sm:text-base text-gray-700 max-w-xl">Organize your recruiting process from first application to final offer.</p>
+                <p className="mt-3 text-sm sm:text-base text-gray-700 max-w-xl">Monitor portfolio company progress, track key metrics, and identify growth opportunities across all investments.</p>
               </div>
               {/* Right: Interactive Tracker (60%) */}
               <div className="lg:col-span-3">
@@ -983,9 +983,9 @@ export function HomeTab() {
                   <div className="divide-y divide-gray-200">
                     <div className="grid grid-cols-12 px-3 sm:px-4 py-2 text-[11px] uppercase tracking-wider text-gray-600 bg-gray-50 border-b border-gray-200 divide-x divide-gray-200">
                       <div className="col-span-1 text-center">#</div>
-                      <div className="col-span-5 text-center">Role</div>
-                      <div className="col-span-3 text-center">Status</div>
-                      <div className="col-span-3 text-center">Location</div>
+                      <div className="col-span-5 text-center">Company</div>
+                      <div className="col-span-3 text-center">Stage</div>
+                      <div className="col-span-3 text-center">Sector</div>
                     </div>
                     {rows.map((app, idx) => {
                       return (
@@ -1044,9 +1044,9 @@ export function HomeTab() {
             <div className="flex flex-col items-center">
               {/* Top: Text */}
               <div className="text-center mb-10">
-                <h2 className="font-news text-3xl sm:text-4xl leading-tight text-gray-900">Prep Together, Succeed Together</h2>
+                <h2 className="font-news text-3xl sm:text-4xl leading-tight text-gray-900">Portfolio Network & Ecosystem</h2>
                 <div className="mt-2 h-0.5 w-10 bg-blue-600/80 mx-auto"></div>
-                <p className="mt-3 text-sm sm:text-base text-gray-700 max-w-xl">Coordinate prep efforts and share analytics across teams, clubs, and programs. Build stronger candidates through collaborative preparation.</p>
+                <p className="mt-3 text-sm sm:text-base text-gray-700 max-w-xl">Connect portfolio companies with our network of advisors, industry experts, and strategic partners to accelerate growth and success.</p>
               </div>
               {/* Bottom: Organization Display - Placeholder */}
               <div className="w-full">
@@ -1081,13 +1081,13 @@ export function HomeTab() {
                           <div className="flex items-center justify-between mb-3">
                             <div className="flex items-center space-x-3">
                               <div>
-                                <h3 className="text-lg font-semibold text-gray-900">Investment Banking Club</h3>
-                                <p className="text-sm text-gray-600">Harvard University</p>
+                                <h3 className="text-lg font-semibold text-gray-900">Portfolio Advisory Board</h3>
+                                <p className="text-sm text-gray-600">APT4 Ventures Network</p>
                               </div>
                             </div>
                             <div className="flex items-center space-x-4">
                               <div className="text-right">
-                                <div className="text-sm font-medium text-gray-900">24 members</div>
+                                <div className="text-sm font-medium text-gray-900">24 advisors</div>
                                 <div className="text-xs text-gray-500">Active</div>
                               </div>
                             </div>
@@ -1100,11 +1100,11 @@ export function HomeTab() {
                               <div className="flex items-center space-x-3">
                                 <div className="text-center bg-green-50 px-2 py-1 rounded border border-green-200">
                                   <div className="text-sm font-bold text-green-700">A+</div>
-                                  <div className="text-xs text-green-600">Avg Grade</div>
+                                  <div className="text-xs text-green-600">Performance</div>
                                 </div>
                                 <div className="text-center bg-blue-50 px-2 py-1 rounded border border-blue-200">
                                   <div className="text-xs font-semibold text-blue-700">17</div>
-                                  <div className="text-xs text-blue-600">Interviews</div>
+                                  <div className="text-xs text-blue-600">Companies</div>
                                 </div>
                               </div>
                             </div>
@@ -1138,10 +1138,10 @@ export function HomeTab() {
                           <div className="grid grid-cols-12 px-3 py-2 text-[11px] uppercase tracking-wider text-gray-600 bg-gray-50 border-b border-gray-200 divide-x divide-gray-200">
                             <div className="col-span-1 text-center">#</div>
                             <div className="col-span-2 text-center">Name</div>
-                            <div className="col-span-3 text-center">Vertical</div>
-                            <div className="col-span-2 text-center">Interviews</div>
-                            <div className="col-span-2 text-center">Technical</div>
-                            <div className="col-span-2 text-center">Behavioral</div>
+                            <div className="col-span-3 text-center">Expertise</div>
+                            <div className="col-span-2 text-center">Companies</div>
+                            <div className="col-span-2 text-center">Sector</div>
+                            <div className="col-span-2 text-center">Experience</div>
                           </div>
                           
                           {/* Table Rows */}
@@ -1208,15 +1208,15 @@ export function HomeTab() {
             <div className="rounded-none bg-gray-950 text-gray-100 border border-gray-800 overflow-hidden">
               <div className="grid lg:grid-cols-5 gap-8 p-8 sm:p-10">
                 <div className="lg:col-span-2">
-                  <h2 className="font-news text-3xl sm:text-4xl leading-tight">Enterprise‑grade security, by default</h2>
+                  <h2 className="font-news text-3xl sm:text-4xl leading-tight">Confidentiality & Trust</h2>
                   <div className="mt-2 h-0.5 w-10 bg-blue-500/80"></div>
-                  <p className="mt-3 text-sm sm:text-base text-gray-300">Encryption, least‑privilege access, and privacy safeguards across the stack.</p>
+                  <p className="mt-3 text-sm sm:text-base text-gray-300">We maintain the highest standards of confidentiality and trust in all our investment activities and portfolio relationships.</p>
                 </div>
                 <div className="lg:col-span-3">
                   <div className="grid sm:grid-cols-2 gap-6 items-stretch">
                     <div className="border border-gray-800/60 bg-gray-900/40 p-5 rounded-md h-full flex flex-col justify-center gap-1">
-                      <div className="text-sm font-semibold text-white">Privacy‑first</div>
-                      <div className="text-sm text-gray-300">Student data is never sold; purpose‑bound processing.</div>
+                      <div className="text-sm font-semibold text-white">Confidentiality</div>
+                      <div className="text-sm text-gray-300">Portfolio company information is protected with the highest security standards.</div>
                     </div>
                     <div className="border border-gray-800/60 bg-gray-900/40 p-5 rounded-md h-full flex flex-col justify-center gap-1">
                       <div className="text-sm font-semibold text-white">Encryption</div>
@@ -1224,11 +1224,11 @@ export function HomeTab() {
                     </div>
                     <div className="border border-gray-800/60 bg-gray-900/40 p-5 rounded-md h-full flex flex-col justify-center gap-1">
                       <div className="text-sm font-semibold text-white">Access control</div>
-                      <div className="text-sm text-gray-300">Role-based access, SSO/SAML options, audit trails.</div>
+                      <div className="text-sm text-gray-300">Role-based access, secure authentication, comprehensive audit trails.</div>
                     </div>
                     <div className="border border-gray-800/60 bg-gray-900/40 p-5 rounded-md h-full flex flex-col justify-center gap-1">
-                      <div className="text-sm font-semibold text-white">Built for teams</div>
-                      <div className="text-sm text-gray-300">Multi‑seat, workspace isolation, export controls.</div>
+                      <div className="text-sm font-semibold text-white">Portfolio management</div>
+                      <div className="text-sm text-gray-300">Comprehensive portfolio tracking, secure data sharing, and collaboration tools.</div>
                     </div>
                   </div>
                 </div>

@@ -46,9 +46,9 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Brand Section */}
           <div className="space-y-2">
-            <h3 className="text-lg font-libre font-semibold tracking-tight text-black">rolodex</h3>
+            <h3 className="text-lg font-libre font-semibold tracking-tight text-black">APT4 Ventures</h3>
             <p className="text-xs text-gray-600">
-              not an antique study guide and definitely not an early-2000's prep website
+              Partnering with exceptional founders to build the future of technology
             </p>
             <div className="flex items-center gap-3">
               <a 
@@ -81,8 +81,8 @@ export function Footer() {
             <h4 className="text-gray-900 font-semibold mb-2 text-sm">Quick Links</h4>
             <ul className="space-y-1">
               <li>
-                <a href="#request-demo" className="text-xs text-gray-600 hover:text-gray-900 transition-colors">
-                  Request Demo
+                <a href="#contact" className="text-xs text-gray-600 hover:text-gray-900 transition-colors">
+                  Contact Us
                 </a>
               </li>
               <li>
@@ -103,8 +103,8 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#career-overview" className="text-xs text-gray-600 hover:text-gray-900 transition-colors">
-                  Career Overview
+                <a href="#portfolio" className="text-xs text-gray-600 hover:text-gray-900 transition-colors">
+                  Portfolio
                 </a>
               </li>
               <li>
@@ -124,7 +124,7 @@ export function Footer() {
           <div>
             <h4 className="text-gray-900 font-semibold mb-2 text-sm">Stay Updated</h4>
             <p className="text-xs text-gray-600 mb-2">
-              Get the latest IB interview tips and industry insights.
+              Get the latest venture capital insights and portfolio updates.
             </p>
             <form className="space-y-1" onSubmit={handleNewsletterSubmit}>
               <div className="flex">
@@ -180,7 +180,7 @@ export function Footer() {
         
         {/* Left: Copyright */}
         <div className="text-xs text-gray-600">
-          © {currentYear} Rolodex. All rights reserved.
+          © {currentYear} APT4 Ventures. All rights reserved.
         </div>
 
         {/* Center: Policies (absolute center) */}

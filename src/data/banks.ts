@@ -16,4 +16,8 @@ export const bankCompanies: CompanyLogo[] = [
   { name: 'Lazard', logoSrc: '/logos/lazard.svg' },
   { name: 'Evercore', logoSrc: '/logos/evercore.svg' },
   { name: 'Moelis & Company', logoSrc: '/logos/moelis.svg' },
+  { name: 'Anthropic', logoSrc: '/logos/Anthropic_logo.svg' },
+  { name: 'Google', logoSrc: '/logos/Google_logo-11.svg' },
+  { name: 'Meta', logoSrc: '/logos/Meta_Platforms_Inc._logo.svg' },
+  { name: 'OpenAI', logoSrc: '/logos/OpenAI_Logo.svg' },
 ];
